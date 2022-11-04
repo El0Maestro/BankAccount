@@ -15,13 +15,11 @@ public class GUI extends JFrame implements ActionListener {
     ImageIcon bcg;
     JFileChooser fileChooser;
 
-
     final Font dateFont = new Font("SansSerif", Font.ITALIC, 33);
     final Font defFont = new Font("SansSerif", Font.BOLD, 18);
     final Font clickFont = new Font("SansSerif", Font.PLAIN, 13);
     final Font fileFont = new Font("SansSerif", Font.BOLD, 20);
     private final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-
 
     public GUI() {
         bcg = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("bankbcg.png")));
