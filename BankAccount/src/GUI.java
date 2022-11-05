@@ -14,6 +14,8 @@ public class GUI extends JFrame implements ActionListener {
     JFrame frame;
     ImageIcon bcg;
     JFileChooser fileChooser;
+    static File file;
+
 
     final Font dateFont = new Font("SansSerif", Font.ITALIC, 33);
     final Font defFont = new Font("SansSerif", Font.BOLD, 18);
@@ -25,7 +27,6 @@ public class GUI extends JFrame implements ActionListener {
         bcg = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("bankbcg.png")));
 
         fileChooser = new JFileChooser();
-
 
         backgroundLabel = new JLabel(bcg);
         backgroundLabel.setSize(1052, 720);
@@ -86,9 +87,10 @@ public class GUI extends JFrame implements ActionListener {
             chooseFileButton.setFont(clickFont);
             int response = fileChooser.showOpenDialog(null);
             if (response == JFileChooser.APPROVE_OPTION) {
-                File file = new File(fileChooser.getSelectedFile().getAbsolutePath());
+                file = new File(fileChooser.getSelectedFile().getAbsolutePath());
                 System.out.println(file);
                 fileDirectoryLabel.setText(file.toString());
+                Excel.main(Excel.file.list());
             }
         } else if (source == closeWindowButton) {
             closeWindowButton.setFont(clickFont);
