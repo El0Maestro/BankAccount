@@ -16,7 +16,7 @@ public class Excel extends GUI {
     static File file;
     public static void main(String[] args) {
         try {
-//            file = new File(String.valueOf(GUI.getFile()));   //creating a new file instance
+            file = new File(GUI.getFile().toURI());   //creating a new file instance
             FileInputStream fis = new FileInputStream(file);   //obtaining bytes from the file
 //creating Workbook instance that refers to .xlsx file
             XSSFWorkbook wb = new XSSFWorkbook(fis);
