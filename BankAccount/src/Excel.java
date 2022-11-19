@@ -1,53 +1,76 @@
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-
-public class Excel extends GUI {
-    public static void main(String[] args) throws IOException {
+import java.util.Iterator;
 
 
-        String exceleFilePath = "Plik_bankowy.xlsx";
+public class Excel {
 
-            FileInputStream file = new FileInputStream(exceleFilePath);
-            //FileInputStream file = new FileInputStream(GUI.file);
-            XSSFWorkbook workbook = new XSSFWorkbook(file);
+    public static void main(String[] args) throws Exception {
 
-            //Pobieranie arkusza excel
-            XSSFSheet sheet= workbook.getSheetAt(0);//druga opcja na pobranie arkusza XSSFSheet sheet= workbook.getSheet("Arkusz1");
+        File file = new File("Plik_bankowy.xlsx");
+        String[][] dataTable = null;
 
-            //użycie pętli for
-        int rows = sheet.getLastRowNum();//pobieranie ilości wierszy w excelu
-        int columns = sheet.getRow(1).getLastCellNum();//pobieranie ilości kolumn excel
-        for (int r=0; r<=rows; r++)//zaczynamy od wiersza na indexie 0, wykonuje do ilości pobranych wierszy, i podnosimy po każdej iteracji pętli
-        {
-            XSSFRow row = sheet.getRow(r);
+ // public static void Read(String path) {
+        try {
+            //File file = new File(path);
+            DataFormatter dataFormatter = new DataFormatter();
 
-            for (int c=0; c<columns; c++){
-
-                XSSFCell cell = row.getCell(c);
-                switch (cell.getCellType()){
-                    case STRING -> {
-                        System.out.println(cell.getStringCellValue());
-                        break;
-                    }
-                    case NUMERIC -> {
-                        System.out.println(cell.getNumericCellValue());
-                        break;
+//creating a new file instance
+            FileInputStream fis = new FileInputStream(file);   //obtaining bytes from the file
+// creating Workbook instance that refers to .xlsx file
+            XSSFWorkbook wb = new XSSFWorkbook(fis);
+            XSSFSheet sheet = wb.getSheetAt(0);     //creating a Sheet object to retrieve object
+            Iterator<Row> itr = sheet.iterator();    //iterating over excel file
+            while (itr.hasNext())
+            {
+                Row row = itr.next();
+                Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column
+                while (cellIterator.hasNext())
+                {
+                    Cell cell = cellIterator.next();
+                    String cellValue = dataFormatter.formatCellValue(cell);
+                    switch (cell.getCellType())
+                    {
+                        case Cell.CELL_TYPE_STRING:    //field that represents string cell type
+                            System.out.print(cellValue + "\t\t\t");
+                            break;
+                        case Cell.CELL_TYPE_NUMERIC:    //field that represents number cell type
+                            System.out.print(cellValue + "\t\t\t");
+                            break;
+                        default:
                     }
                 }
-
+                System.out.println("");
             }
-            System.out.println();
+            System.out.println("__________________");
+            int numRows = sheet.getLastRowNum() +1;
+            int numCols = sheet.getRow(0).getLastCellNum();
+
+            dataTable = new String[numRows][numCols];
+            for (int i = 0; i < numRows; i++) {
+                XSSFRow xlRow = sheet.getRow(i);
+                for (int j = 0; j < numCols; j++) {
+                    XSSFCell xlCell = xlRow.getCell(j);
+                    dataTable[i][j] = xlCell.toString();
+                }
+            }
+
+
+
+        }
+        catch(Exception e) {
+            e.printStackTrace();
         }
 
-
-
-
-
-
     }
+
+
 }

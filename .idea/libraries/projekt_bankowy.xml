@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="projekt bankowy">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../Biblioteka Excel apache POI/projekt bankowy" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../../Biblioteka Excel apache POI/projekt bankowy" recursive="false" />
+  </library>
+</component>
