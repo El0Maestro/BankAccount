@@ -8,6 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Arrays;
 import java.util.Iterator;
 
 
@@ -62,6 +63,7 @@ public class Excel {
                     dataTable[i][j] = xlCell.toString();
                 }
             }
+            System.out.println(Arrays.deepToString(dataTable));
 
 
 
