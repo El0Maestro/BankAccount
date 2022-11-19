@@ -1,13 +1,11 @@
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xssf.usermodel.*;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -18,6 +16,7 @@ public class Excel {
 
         File file = new File("Plik_bankowy.xlsx");
         String[][] dataTable = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu");
 
  // public static void Read(String path) {
         try {
@@ -48,6 +47,7 @@ public class Excel {
                             break;
                         default:
                     }
+
                 }
                 System.out.println("");
             }
@@ -61,11 +61,10 @@ public class Excel {
                 for (int j = 0; j < numCols; j++) {
                     XSSFCell xlCell = xlRow.getCell(j);
                     dataTable[i][j] = xlCell.toString();
+
                 }
             }
             System.out.println(Arrays.deepToString(dataTable));
-
-
 
         }
         catch(Exception e) {
