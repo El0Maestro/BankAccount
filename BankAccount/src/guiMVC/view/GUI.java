@@ -1,6 +1,7 @@
 package guiMVC.view;
 
 import guiMVC.controller.Excel;
+import guiMVC.model.Text;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -37,12 +38,14 @@ public class GUI extends JFrame implements ActionListener {
         setLayout(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        Text text = new Text();
+
         bcg1 = new ImageIcon(this.getClass().getResource("/fileselectbng.png"));
         bcg = new ImageIcon(this.getClass().getResource("/mainbcg.png"));
         fileChooser = new JFileChooser();
 
 
-        closeWindowButton = new JButton("ZAMKNIJ");
+        closeWindowButton = new JButton(text.getClose());
         closeWindowButton.setVisible(true);
         closeWindowButton.setBounds(873, 665, 130, 37);
         closeWindowButton.addActionListener(this);
@@ -51,7 +54,7 @@ public class GUI extends JFrame implements ActionListener {
         closeWindowButton.setFocusPainted(false);
         closeWindowButton.setOpaque(false);
 
-        backToMainButton = new JButton("WRÓÆ");
+        backToMainButton = new JButton(text.getBack());
         backToMainButton.setVisible(true);
         backToMainButton.setBounds(873, 665, 130, 37);
         backToMainButton.addActionListener(this);
@@ -60,7 +63,7 @@ public class GUI extends JFrame implements ActionListener {
         backToMainButton.setFocusPainted(false);
         backToMainButton.setOpaque(false);
 
-        chooseFileButton = new JButton("WYBIERZ");
+        chooseFileButton = new JButton(text.getChoose());
         chooseFileButton.setVisible(true);
         chooseFileButton.setBounds(475, 287, 100, 37);
         chooseFileButton.addActionListener(this);
@@ -70,7 +73,7 @@ public class GUI extends JFrame implements ActionListener {
         chooseFileButton.setOpaque(false);
         setFont(fileFont);
 
-        chooseFileScreen = new JButton("1.ODCZYTAJ DANE");
+        chooseFileScreen = new JButton(text.getReadData());
         chooseFileScreen.setVisible(true);
         chooseFileScreen.setBounds(23, 200, 250, 50);
         chooseFileScreen.addActionListener(this);
@@ -104,7 +107,7 @@ public class GUI extends JFrame implements ActionListener {
         fileDirectoryLabel.setVisible(true);
         fileDirectoryLabel.setBounds(300, 205, 500, 60);
 
-        mainFrame = new JFrame("Bank Account Binder");
+        mainFrame = new JFrame(text.getBankAcc());
         mainFrame.setSize(1052, 759);
         mainFrame.setLayout(null);
         mainFrame.add(mainBcg);
@@ -116,7 +119,7 @@ public class GUI extends JFrame implements ActionListener {
         mainBcg.add(dateShowLabel);
         mainBcg.add(chooseFileScreen);
 
-        fileChooseFrame = new JFrame("File choose screen");
+        fileChooseFrame = new JFrame(text.getFileScreen());
         fileChooseFrame.setSize(1052, 759);
         fileChooseFrame.setLayout(null);
         fileChooseFrame.add(fileChooseBcg);
