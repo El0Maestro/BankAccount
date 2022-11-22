@@ -4,6 +4,12 @@ public class Text {
     final String close = "ZAMKNIJ";
     final String back = "WRÓÆ";
 
+    public String getFilePresentation() {
+        return filePresentation;
+    }
+
+    final String filePresentation = "Prezentacja odczytanych danych";
+
     public String getClose() {
         return close;
     }
