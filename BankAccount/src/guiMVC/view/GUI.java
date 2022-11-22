@@ -1,7 +1,6 @@
 package guiMVC.view;
 
 import guiMVC.controller.Excel;
-import guiMVC.model.Text;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -15,10 +14,10 @@ import java.util.*;
 
 public class GUI extends JFrame implements ActionListener {
 
-    JButton chooseFileScreen, closeWindowButton, backToMainButton, chooseFileButton;
+    JButton chooseFileScreen, showListScreen, closeWindowButton, backToMainButton, chooseFileButton;
     JLabel dateShowLabel, fileDirectoryLabel, dateShowLabel1, mainBcg, fileChooseBcg;
     ImageIcon bcg, bcg1;
-    JFrame mainFrame, fileChooseFrame;
+    JFrame mainFrame, fileChooseFrame, dataShowFrame;
     JFileChooser fileChooser;
 
     public static File getFile() {
@@ -38,14 +37,11 @@ public class GUI extends JFrame implements ActionListener {
         setLayout(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        Text text = new Text();
-
-        bcg1 = new ImageIcon(this.getClass().getResource("/fileselectbng.png"));
-        bcg = new ImageIcon(this.getClass().getResource("/mainbcg.png"));
+        bcg1 = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/fileselectbng.png")));
+        bcg = new ImageIcon(Objects.requireNonNull(this.getClass().getResource("/mainbcg.png")));
         fileChooser = new JFileChooser();
 
-
-        closeWindowButton = new JButton(text.getClose());
+        closeWindowButton = new JButton("ZAMKNIJ");
         closeWindowButton.setVisible(true);
         closeWindowButton.setBounds(873, 665, 130, 37);
         closeWindowButton.addActionListener(this);
@@ -54,7 +50,7 @@ public class GUI extends JFrame implements ActionListener {
         closeWindowButton.setFocusPainted(false);
         closeWindowButton.setOpaque(false);
 
-        backToMainButton = new JButton(text.getBack());
+        backToMainButton = new JButton("WRÓĆ");
         backToMainButton.setVisible(true);
         backToMainButton.setBounds(873, 665, 130, 37);
         backToMainButton.addActionListener(this);
@@ -63,7 +59,7 @@ public class GUI extends JFrame implements ActionListener {
         backToMainButton.setFocusPainted(false);
         backToMainButton.setOpaque(false);
 
-        chooseFileButton = new JButton(text.getChoose());
+        chooseFileButton = new JButton("WYBIERZ");
         chooseFileButton.setVisible(true);
         chooseFileButton.setBounds(475, 287, 100, 37);
         chooseFileButton.addActionListener(this);
@@ -73,7 +69,7 @@ public class GUI extends JFrame implements ActionListener {
         chooseFileButton.setOpaque(false);
         setFont(fileFont);
 
-        chooseFileScreen = new JButton(text.getReadData());
+        chooseFileScreen = new JButton("1.ODCZYTAJ DANE");
         chooseFileScreen.setVisible(true);
         chooseFileScreen.setBounds(23, 200, 250, 50);
         chooseFileScreen.addActionListener(this);
@@ -81,6 +77,15 @@ public class GUI extends JFrame implements ActionListener {
         chooseFileScreen.setContentAreaFilled(false);
         chooseFileScreen.setFocusPainted(false);
         chooseFileScreen.setOpaque(false);
+
+        showListScreen = new JButton("2.POKAŻ WYNIKI");
+        showListScreen.setVisible(true);
+        showListScreen.setBounds(15, 266, 250, 50);
+        showListScreen.addActionListener(this);
+        showListScreen.setBorderPainted(false);
+        showListScreen.setContentAreaFilled(false);
+        showListScreen.setFocusPainted(false);
+        showListScreen.setOpaque(false);
 
         dateShowLabel = new JLabel();
         dateShowLabel.setVisible(true);
@@ -107,7 +112,7 @@ public class GUI extends JFrame implements ActionListener {
         fileDirectoryLabel.setVisible(true);
         fileDirectoryLabel.setBounds(300, 205, 500, 60);
 
-        mainFrame = new JFrame(text.getBankAcc());
+        mainFrame = new JFrame("Segregator Konta Bankowego");
         mainFrame.setSize(1052, 759);
         mainFrame.setLayout(null);
         mainFrame.add(mainBcg);
@@ -118,8 +123,9 @@ public class GUI extends JFrame implements ActionListener {
         mainBcg.add(closeWindowButton);
         mainBcg.add(dateShowLabel);
         mainBcg.add(chooseFileScreen);
+        mainBcg.add(showListScreen);
 
-        fileChooseFrame = new JFrame(text.getFileScreen());
+        fileChooseFrame = new JFrame("Ekran wyboru pliku");
         fileChooseFrame.setSize(1052, 759);
         fileChooseFrame.setLayout(null);
         fileChooseFrame.add(fileChooseBcg);
@@ -132,6 +138,13 @@ public class GUI extends JFrame implements ActionListener {
         fileChooseBcg.add(backToMainButton);
         fileChooseBcg.add(chooseFileButton);
         fileChooseBcg.add(fileDirectoryLabel);
+
+        dataShowFrame = new JFrame("Prezentacja odczytanych danych");
+        dataShowFrame.setSize(1052, 759);
+        dataShowFrame.setLayout(null);
+        dataShowFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        dataShowFrame.setLocationRelativeTo(null);
+        dataShowFrame.setVisible(false);
     }
 
     public static void main(String[] args) {
@@ -151,6 +164,7 @@ public class GUI extends JFrame implements ActionListener {
             chooseFileScreen.setFont(clickFont);
             mainFrame.setVisible(false);
             fileChooseFrame.setVisible(true);
+            dataShowFrame.setVisible(false);
         } else if (source == chooseFileButton) {
             chooseFileButton.setFont(clickFont);
             int response = fileChooser.showOpenDialog(null);
@@ -160,13 +174,19 @@ public class GUI extends JFrame implements ActionListener {
                 fileDirectoryLabel.setText(file.toString());
                 Excel.main(Excel.getFile().list());
             }
-        }else if (source == backToMainButton){
+        } else if (source == backToMainButton) {
             mainFrame.setVisible(true);
             fileChooseFrame.setVisible(false);
-        } else {
+            dataShowFrame.setVisible(false);
+        } else if (source == showListScreen) {
+            mainFrame.setVisible(false);
+            fileChooseFrame.setVisible(false);
+            dataShowFrame.setVisible(true);
+        }else{
             closeWindowButton.setFont(defFont);
+            backToMainButton.setFont(defFont);
             chooseFileScreen.setFont(defFont);
-
+            showListScreen.setFont(defFont);
         }
     }
 }
