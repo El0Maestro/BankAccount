@@ -1,11 +1,13 @@
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class ConnectToData {
 
-    public static void SendInfromationToExcel(/*String Path*/){
-        String Path = "Plik_bankowy.xlsx";
+    public static void SendInfromationToExcel(String Path){
+        /*String Path = "Plik_bankowy.xlsx";*/
         //informacja(path);
     }
 
@@ -14,24 +16,15 @@ public class ConnectToData {
     }
 
 
-    public static void ReceivingDataFromExcel(/*tablica[] tab*/){
-        //przetwarzam dane i wysylam daty do sortowania(lub zmiany)
-    }
-
-    private static void SortingDates(/*List<String> dates || tablica[] */){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-        try
-        {
-            /*for (String sorted:dates) {
-                formatter.parse(sorted);
-                //Date.add(sorted);
-            }*/
-        }catch (Exception e){
-            System.out.println("ERROR date is Invalid");
+    public static void ReceivingDataFromExcel(String[][] ListFromExcel){
+        List<String> ListTransactions = new ArrayList<>();
+        for (String[] List:ListFromExcel) {
+            ListTransactions.add(Arrays.toString(List));
         }
+        SendDataToDataBase(ListTransactions);
     }
-    private static void SendSortedDataToDataBase(){
-        //wszystko posortowane wysylam do DB
+    private static void SendDataToDataBase(List<String> ListTransactions){
+        //Send(list)
     }
 
 
