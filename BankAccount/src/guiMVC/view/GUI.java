@@ -1,5 +1,6 @@
 package guiMVC.view;
 
+import guiMVC.controller.ConnectToData;
 import guiMVC.controller.Excel;
 import guiMVC.model.Text;
 
@@ -21,11 +22,7 @@ public class GUI extends JFrame implements ActionListener {
     JFrame mainFrame, fileChooseFrame, dataShowFrame;
     JFileChooser fileChooser;
 
-    public static File getFile() {
-        return file;
-    }
-
-    static File file;
+    public static File file;
 
     final Font dateFont = new Font("SansSerif", Font.ITALIC, 33);
     final Font defFont = new Font("SansSerif", Font.BOLD, 18);
@@ -174,7 +171,7 @@ public class GUI extends JFrame implements ActionListener {
                 file = new File(fileChooser.getSelectedFile().getAbsolutePath());
                 System.out.println(file);
                 fileDirectoryLabel.setText(file.toString());
-                Excel.main(Excel.getFile().list());
+                ConnectToData.SendInfromationToExcel(file.toString());
             }
         } else if (source == backToMainButton) {
             mainFrame.setVisible(true);

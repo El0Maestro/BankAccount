@@ -8,20 +8,15 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class Excel extends GUI {
-    public static File getFile() {
-        return file;
-    }
-
-    static File file;
+public class Excel extends GUI{
     public static void main(String[] args) {
         try {
-            file = new File(GUI.getFile().toURI());   //creating a new file instance
+            File file = new File(String.valueOf(GUI.file));   //creating a new file instance
             FileInputStream fis = new FileInputStream(file);   //obtaining bytes from the file
 //creating Workbook instance that refers to .xlsx file
             XSSFWorkbook wb = new XSSFWorkbook(fis);
             XSSFSheet sheet = wb.getSheetAt(0);     //creating a Sheet object to retrieve object
-            Iterator<Row> itr = sheet.iterator();    //iterating over guiMVC.controller.Excel file
+            Iterator<Row> itr = sheet.iterator();    //iterating over Excel file
             while (itr.hasNext()) {
                 Row row = itr.next();
                 Iterator<Cell> cellIterator = row.cellIterator();   //iterating over each column
