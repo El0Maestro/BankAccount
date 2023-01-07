@@ -301,6 +301,8 @@ public class GUI extends JFrame implements ActionListener {
                     dataShowFrame.add(cellLabel);
                 }
             }
+
+            Excel.main(null);
         }
         // Jeœli przycisk "Powrót" zostanie naciœniêty, wróæ do g³ównego okna aplikacji
         if (e.getSource() == backToMainButton) {

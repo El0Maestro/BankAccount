@@ -12,20 +12,17 @@ public class ConnectToData {
 
     //Wyœlij dane do interfejsu graficznego z bazy danych
     public static String[][] getDataToGUI() {
-        Excel.main(); // wywo³anie metody main() z klasy Excel
-        String[][] data = Excel.getData(); // pobranie danych z klasy Excel
+        // tutaj implementacja metody getData, np.:
+        String[][] data = new String[][] {
+                {"1", "Jan", "Kowalski", "2000-01-01", "1000"},
+                {"2", "Anna", "Nowak", "2000-02-02", "2000"},
+                {"3", "Pawe³", "Wiœniewski", "2000-03-03", "3000"},
+                {"4", "Gawe³", "Wiœniewski", "1999-02-01", "5000"},
+                {"5", "Jarek", "Kaniewski", "2002-05-12", "2400"}
+        };
+        return data;
+        //Wyœlij dane do interfejsu graficznego z bazy danych
 
-        // Przekszta³cenie danych z tablicy String na format odpowiedni do wyœwietlenia w tabeli
-        String[][] dataForTable = new String[data.length][];
-        for (int i = 0; i < data.length; i++) {
-            String[] row = data[i];
-            dataForTable[i] = new String[row.length];
-            for (int j = 0; j < row.length; j++) {
-                dataForTable[i][j] = row[j];
-            }
-        }
-
-        return dataForTable;
     }
 
     public static void ReceivingDataFromExcel(String[][] ListFromExcel) {
