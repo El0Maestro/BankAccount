@@ -1,33 +1,39 @@
 package guiMVC.controller;
 
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ConnectToData {
 
-    public static void SendInfromationToExcel(String Path){
-        /*String Path = "Plik_bankowy.xlsx";*/
-        //informacja(path);
+    public static void sendInformationToExcel(String path){
+        // Wyœlij informacje z pliku podanego w parametrze "path" do arkusza Excel
     }
 
-    public static void SendDataToGUI(/*tablica[] tab || list*/){
-        //Wysylam do GUI z DB
-    }
+    //Wyœlij dane do interfejsu graficznego z bazy danych
+    public static String[][] getDataToGUI() {
+        Excel.main(); // wywo³anie metody main() z klasy Excel
+        String[][] data = Excel.getData(); // pobranie danych z klasy Excel
 
-
-    public static void ReceivingDataFromExcel(String[][] ListFromExcel){
-        List<String> ListTransactions = new ArrayList<>();
-        for (String[] List:ListFromExcel) {
-            ListTransactions.add(Arrays.toString(List));
+        // Przekszta³cenie danych z tablicy String na format odpowiedni do wyœwietlenia w tabeli
+        String[][] dataForTable = new String[data.length][];
+        for (int i = 0; i < data.length; i++) {
+            String[] row = data[i];
+            dataForTable[i] = new String[row.length];
+            for (int j = 0; j < row.length; j++) {
+                dataForTable[i][j] = row[j];
+            }
         }
-        SendDataToDataBase(ListTransactions);
-    }
-    private static void SendDataToDataBase(List<String> ListTransactions){
-        //Send(list)
+
+        return dataForTable;
     }
 
+    public static void ReceivingDataFromExcel(String[][] ListFromExcel) {
+        SendDataToDataBase(ListFromExcel);
+    }
 
+    private static void SendDataToDataBase(String[][] listTransactions) {
+        List<String> transactions = Arrays.stream(listTransactions).map(Arrays::toString).collect(Collectors.toList());
+        //Send(transactions)
+    }
 }
