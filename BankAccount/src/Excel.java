@@ -1,3 +1,4 @@
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -11,31 +12,26 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class Excel {
-    File file = new File("Plik_bankowy.xlsx");//instancja scieżki pliku
-    String[][] dataTable;//tablica dwuwymiarowa typu String
-    FileInputStream fis;//tworzenie nowej instancjii
-    XSSFWorkbook workbook = new XSSFWorkbook(fis);//odwołanie do pliku .xls
+class Excel {
+    private File file = new File("Plik_bankowy.xlsx");//instancja scieżki pliku
+    private String[][] dataTable;//tablica dwuwymiarowa typu String
+    private FileInputStream fis;//tworzenie nowej instancjii
 
-    public Excel() throws IOException {
-    }
 
     void Read(String path) throws IOException {
         this.file = new File(path);
         try {
-            //XSSFWorkbook workbook = new XSSFWorkbook(fis);//odwołanie do pliku .xls
+            XSSFWorkbook workbook = new XSSFWorkbook(fis);//odwołanie do pliku .xls
             XSSFSheet sheet = workbook.getSheetAt(0);//tworzy obiekt do pobierania na którym pracujemy
             Iterator<Row> itr = sheet.iterator();//iteruje po całym pliku
-            while (itr.hasNext())
-            {
+            while (itr.hasNext()) {
                 Row row = itr.next();
                 Iterator<Cell> cellIterator = row.cellIterator();//iterowanie po każdej komórce
-                while (cellIterator.hasNext())
-                {
+                while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
                 }
             }
-            int numRows = sheet.getLastRowNum() +1;
+            int numRows = sheet.getLastRowNum() + 1;
             int numCols = sheet.getRow(0).getLastCellNum();
 //pętla for do wyciągnicia wszystkich danych i zapisania w tablicy dwuwymiarowej
             dataTable = new String[numRows][numCols];
@@ -46,19 +42,21 @@ public class Excel {
                     dataTable[i][j] = xlCell.toString();
                 }
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         convertToString(dataTable);
 
     }
-    static void convertToString(String dataTable [][]){
 
-        for (int n = 0; n < dataTable.length; n++ )
-        {
+    void convertToString(String[][] dataTable) {
+
+        for (int n = 0; n < dataTable.length; n++) {
             System.out.println("------------------");
             System.out.println(Arrays.deepToString(dataTable[n]));
         }
+
     }
+
+
 }
