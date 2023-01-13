@@ -14,11 +14,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class Excel {
     public static void main(String[] args) {
         try {
-            // Tworzenie nowego obiektu File na podstawie obiektu GUI.file
+            // Tworzenie nowego obiektu File na podstawie klasy GUI
             File file = new File(String.valueOf(GUI.file));
-            // Otwieranie pliku i pobieranie bajtów z pliku
+            // Otwieranie pliku i pobieranie bajtÃ³w z pliku
             FileInputStream fis = new FileInputStream(file);
-            // Tworzenie obiektu Workbook, który odnosi siê do pliku .xlsx
+            // Tworzenie obiektu Workbook, ktÃ³ry odnosi siÄ™ do pliku .xlsx
             XSSFWorkbook wb = new XSSFWorkbook(fis);
             XSSFSheet sheet = wb.getSheetAt(0); // Tworzenie obiektu Sheet do pobrania obiektu
             // Iterowanie przez plik Excel
@@ -29,13 +29,13 @@ public class Excel {
                 Iterator<Cell> cellIterator = row.cellIterator();
                 while (cellIterator.hasNext()) {
                     Cell cell = cellIterator.next();
-                    // Sprawdzanie typu komórki
+                    // Sprawdzanie typu komÃ³rki
                     switch (cell.getCellType()) {
-                        // Pole, które reprezentuje typ komórki tekstowej
+                        // Formatowanie pola, ktÃ³re reprezentuje typ komÃ³rki tekstowej
                         case Cell.CELL_TYPE_STRING:
                             System.out.format("%-30s", cell.getStringCellValue());
                             break;
-                        // Pole, które reprezentuje typ komórki liczbowej
+                        // Formatowanie pola, ktÃ³re reprezentuje typ komÃ³rki liczbowej
                         case Cell.CELL_TYPE_NUMERIC:
                             if (org.apache.poi.ss.usermodel.DateUtil.isCellDateFormatted(cell)) {
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -47,7 +47,7 @@ public class Excel {
                         default:
                     }
                 }
-                // Przejœcie do nowej linii po zakoñczeniu iterowania po kolumnach
+                // PrzejÅ›cie do nowej linii po zakoÅ„czeniu iterowania po kolumnach
                 System.out.println("\n");
             }
         } catch (Exception e) {
