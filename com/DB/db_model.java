@@ -1,4 +1,21 @@
 package DB;
 public class db_model {
-    String init  = "CREATE TABLE IF NOT EXIST transakcje( id integer PRIMARY KEY AUTOINCREMENT, data date, kwota decimal, typ_transakcji char(50), opis char(100))";
+    final String init  = """
+        CREATE TABLE IF NOT EXISTS tranzakcje( 
+            id integer PRIMARY KEY AUTOINCREMENT, 
+            data varchar(30), 
+            kwota varchar(10), 
+            typ_transakcji varchar(50), 
+            opis varchar(100))""";
+    
+    
+    final String SELECT = """
+            SELECT * FROM tranzakcje WHERE %s;
+            """;
+
+    final String INSERT = """
+            INSERT INTO tranzakcje VALUES %s
+            """;
+
+
 }
