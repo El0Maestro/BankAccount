@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
 
-class Excel {
+public class Excel {
     private File file = new File("Plik_bankowy.xlsx");//instancja scieżki pliku
     private String[][] dataTable;//tablica dwuwymiarowa typu String
     private FileInputStream fis;//tworzenie nowej instancjii
