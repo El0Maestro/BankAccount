@@ -1,11 +1,7 @@
 import guiMVC.controller.Excel;
-import guiMVC.controller.DB;
-import guiMVC.view.GUI;
 
 public class Main {
     public static void main(String[] args) {
-
-        Excel read = new Excel();
     }
 
     /*public static void main(String[] args) {
