@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 public class ConnectToData {
 
     public static void sendInformationToExcel(String path){
-        // Wyœlij informacje z pliku podanego w parametrze "path" do arkusza Excel
+        // Wy?lij informacje z pliku podanego w parametrze "path" do arkusza Excel
     }
 
-    //Wyœlij dane do interfejsu graficznego z bazy danych
+    //Wy?lij dane do interfejsu graficznego z bazy danych
     public static String[][] getDataToGUI() {
         // tutaj implementacja metody getData, np.:
         String[][] data = new String[][] {
@@ -21,7 +21,7 @@ public class ConnectToData {
                 {"5", "Jarek", "Kaniewski", "2002-05-12", "2400"}
         };
         return data;
-        //Wyœlij dane do interfejsu graficznego z bazy danych
+        //Wy?lij dane do interfejsu graficznego z bazy danych
 
     }
 

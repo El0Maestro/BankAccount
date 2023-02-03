@@ -284,6 +284,7 @@ public class GUI extends JFrame implements ActionListener {
             mainFrame.setVisible(false);
             // Otwarcie okna z danymi
             dataShowFrame.setVisible(true);
+            Excel.main(null);
 
             // Pobranie danych do wyœwietlenia za pomoc¹ metody getData() z klasy ConnectToData
             String[][] data = ConnectToData.getDataToGUI();
@@ -301,8 +302,6 @@ public class GUI extends JFrame implements ActionListener {
                     dataShowFrame.add(cellLabel);
                 }
             }
-
-            Excel.main(null);
         }
         // Jeœli przycisk "Powrót" zostanie naciœniêty, wróæ do g³ównego okna aplikacji
         if (e.getSource() == backToMainButton) {
