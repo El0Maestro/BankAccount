@@ -14,12 +14,15 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static guiMVC.view.DataDisplay.displayData;
+
 public class GUI extends JFrame implements ActionListener {
 
     // Przyciski interfejsu u¿ytkownika
     JButton chooseFileScreenButton, showListScreenButton, closeWindowButton, backToMainButton, backToMainButton1, chooseFileButton;
     // Etykiety do wyœwietlania tekstu
     JLabel dateShowLabel, fileDirectoryLabel, dateShowLabel1, dateShowLabel2, mainBcg, fileChooseBcg, showDataBcg;
+    JPanel showPanel;
     // Ikony obrazków do wyœwietlenia na tle okna aplikacji
     ImageIcon bcg, bcg1, bcg2;
     // G³ówne okno aplikacji oraz okna dla wyboru pliku i wyœwietlania danych
@@ -284,10 +287,25 @@ public class GUI extends JFrame implements ActionListener {
             mainFrame.setVisible(false);
             // Otwarcie okna z danymi
             dataShowFrame.setVisible(true);
-            Excel.main(null);
 
-            // Pobranie danych do wyœwietlenia za pomoc¹ metody getData() z klasy ConnectToData
-            String[][] data = ConnectToData.getDataToGUI();
+
+//            // Pobranie danych do wyœwietlenia za pomoc¹ metody getData() z klasy ConnectToData
+//            String[][] data = ConnectToData.getDataToGUI();
+//            // Iterowanie po wierszach danych
+//            for (int i = 0; i < data.length; i++) {
+//                // Iterowanie po kolumnach danych
+//                for (int j = 0; j < data[i].length; j++) {
+//                    // Tworzenie etykiety do wyœwietlenia aktualnie przetwarzanej komórki
+//                    JLabel cellLabel = new JLabel(data[i][j]);
+//                    // Ustawienie pozycji etykiety na ekranie
+//                    cellLabel.setBounds(25 + j * 200, 100 + i * 30, 100, 30);
+//                    // Ustawienie podstawowej czcionki
+//                    cellLabel.setFont(defFont);
+//                    // Dodanie etykiety do okna do wyœwietlania danych
+//                    dataShowFrame.add(cellLabel);
+//                }
+//            }
+            String[][] data = Excel.getDataFromExcel().toArray(new String[0][]);
             // Iterowanie po wierszach danych
             for (int i = 0; i < data.length; i++) {
                 // Iterowanie po kolumnach danych
@@ -303,6 +321,7 @@ public class GUI extends JFrame implements ActionListener {
                 }
             }
         }
+
         // Jeœli przycisk "Powrót" zostanie naciœniêty, wróæ do g³ównego okna aplikacji
         if (e.getSource() == backToMainButton) {
             fileChooseFrame.setVisible(false);
@@ -332,5 +351,6 @@ public class GUI extends JFrame implements ActionListener {
         }
     }
 }
+
 
 
