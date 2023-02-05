@@ -283,7 +283,7 @@ public class GUI extends JFrame implements ActionListener {
             mainFrame.setVisible(false);
             // Otwarcie okna z danymi
             dataShowFrame.setVisible(true);
-            ConnectToData.getDataToGUI();
+            ConnectToData.getDataToGUI(choosedFile);
         }
 
         // Jeœli przycisk "Powrót" zostanie naciœniêty, wróæ do g³ównego okna aplikacji

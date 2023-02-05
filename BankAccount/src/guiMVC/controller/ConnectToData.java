@@ -4,6 +4,7 @@ import guiMVC.view.GUI;
 
 import javax.swing.*;
 import java.awt.Dimension;
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 public class ConnectToData {
 
     //Wy?lij dane do interfejsu graficznego z bazy danych
-    public static String[][] getDataToGUI()  {
+    public static String[][] getDataToGUI(File choosedFile)  {
         // Tutaj implementacja metody getData, np.:
         List<String[]> dataList = Excel.getDataFromExcel(choosedFile);
         String[][] data = dataList.toArray(new String[0][]);
