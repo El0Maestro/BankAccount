@@ -14,7 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Excel {
-    public static List<String[]> getDataFromExcel() {
+    public static List<String[]> getDataFromExcel(File choosedFile) {
         List<String[]> rowData = new ArrayList<>();
         try {
             File file = new File(String.valueOf(GUI.choosedFile));

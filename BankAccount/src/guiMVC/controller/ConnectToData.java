@@ -13,7 +13,7 @@ public class ConnectToData {
     //Wy?lij dane do interfejsu graficznego z bazy danych
     public static String[][] getDataToGUI()  {
         // Tutaj implementacja metody getData, np.:
-        List<String[]> dataList = Excel.getDataFromExcel();
+        List<String[]> dataList = Excel.getDataFromExcel(choosedFile);
         String[][] data = dataList.toArray(new String[0][]);
         // Tworzenie panelu do wyświetlania danych z możliwością przewijania
         JScrollPane scrollPane = new JScrollPane();
