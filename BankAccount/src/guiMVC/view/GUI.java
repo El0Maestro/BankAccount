@@ -307,7 +307,7 @@ public class GUI extends JFrame implements ActionListener {
                 choosedFile = fileChooser.getSelectedFile();
                 fileDirectoryLabel.setText(choosedFile.getAbsolutePath());
                 // Uruchom klasê Excel z wybranym plikiem
-                Excel.getDataFromExcel();
+                Excel.getDataFromExcel(choosedFile);
             }
         }
     }
