@@ -1,36 +1,57 @@
 package guiMVC.controller;
 
+import guiMVC.view.GUI;
+
+import javax.swing.*;
+import java.awt.Dimension;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class ConnectToData {
 
-    public static void sendInformationToExcel(String path){
-        // Wy?lij informacje z pliku podanego w parametrze "path" do arkusza Excel
-    }
-
     //Wy?lij dane do interfejsu graficznego z bazy danych
-    public static String[][] getDataToGUI() {
-        // tutaj implementacja metody getData, np.:
-        String[][] data = new String[][] {
-                {"1", "Jan", "Kowalski", "2000-01-01", "1000"},
-                {"2", "Anna", "Nowak", "2000-02-02", "2000"},
-                {"3", "Pawe�", "Wi�niewski", "2000-03-03", "3000"},
-                {"4", "Gawe�", "Wi�niewski", "1999-02-01", "5000"},
-                {"5", "Jarek", "Kaniewski", "2002-05-12", "2400"}
-        };
+    public static String[][] getDataToGUI()  {
+        // Tutaj implementacja metody getData, np.:
+        List<String[]> dataList = Excel.getDataFromExcel();
+        String[][] data = dataList.toArray(new String[0][]);
+        // Tworzenie panelu do wyświetlania danych z możliwością przewijania
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        GUI.dataShowFrame.add(scrollPane);
+        // Tworzenie panelu do wyświetlania danych
+        JPanel dataPanel = new JPanel();
+        dataPanel.setLayout(null);
+        // Iterowanie po wierszach danych
+        for (int i = 0; i < data.length; i++) {
+            // Iterowanie po kolumnach danych
+            for (int j = 0; j < data[i].length; j++) {
+                // Tworzenie etykiety do wyświetlania aktualnie przetwarzanej komórki
+                JLabel cellLabel = new JLabel(data[i][j]);
+                // Ustawienie pozycji etykiety na ekranie
+                cellLabel.setBounds(25 + j * 200, 20 + i * 30, 150, 30);
+                // Ustawienie podstawowej czcionki
+                cellLabel.setFont(GUI.defFont);
+                // Dodanie etykiety do panelu do wyświetlania danych
+                dataPanel.add(cellLabel);
+            }
+        }
+        // Ustawienie wielkości panelu do wyświetlania danych
+        int width = 25 + data[0].length * 200;
+        int height = 100 + data.length * 30;
+        scrollPane.setBounds(20, 102, 1000, 450);
+        dataPanel.setPreferredSize(new Dimension(width, height));
+        // Dodanie panelu do wyświetlania danych do panelu z możliwością przewijania
+        scrollPane.setViewportView(dataPanel);
         return data;
-        //Wy?lij dane do interfejsu graficznego z bazy danych
-
     }
+
 
     public static void ReceivingDataFromExcel(String[][] ListFromExcel) {
         SendDataToDataBase(ListFromExcel);
     }
 
     private static void SendDataToDataBase(String[][] listTransactions) {
-        List<String> transactions = Arrays.stream(listTransactions).map(Arrays::toString).collect(Collectors.toList());
-        //Send(transactions)
+        List<String> transactions = Arrays.stream(listTransactions).map(Arrays::toString).toList();
     }
 }

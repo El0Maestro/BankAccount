@@ -40,7 +40,7 @@ public class Text {
 
     final String choose = "WYBIERZ";
     final String bankAcc = "Bank Account Binder";
-    final String fileScreen = "File choose screen";
+    final String fileScreen = "Ekran wyboru pliku";
     final String readData = "1.ODCZYTAJ DANE";
     final String showData = "2.WYŒWIETL DANE";
 

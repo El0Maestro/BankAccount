@@ -1,8 +1,8 @@
 package guiMVC.view;
 
 import guiMVC.controller.ConnectToData;
-import guiMVC.controller.Excel;
 import guiMVC.model.Text;
+import guiMVC.controller.Excel;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -14,28 +14,25 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static guiMVC.view.DataDisplay.displayData;
-
 public class GUI extends JFrame implements ActionListener {
 
     // Przyciski interfejsu u¿ytkownika
     JButton chooseFileScreenButton, showListScreenButton, closeWindowButton, backToMainButton, backToMainButton1, chooseFileButton;
     // Etykiety do wyœwietlania tekstu
     JLabel dateShowLabel, fileDirectoryLabel, dateShowLabel1, dateShowLabel2, mainBcg, fileChooseBcg, showDataBcg;
-    JPanel showPanel;
     // Ikony obrazków do wyœwietlenia na tle okna aplikacji
     ImageIcon bcg, bcg1, bcg2;
     // G³ówne okno aplikacji oraz okna dla wyboru pliku i wyœwietlania danych
-    JFrame mainFrame, fileChooseFrame, dataShowFrame;
+    public static JFrame mainFrame, fileChooseFrame, dataShowFrame;
     // Narzêdzie do wyboru pliku z dysku
     JFileChooser fileChooser;
 
     // Zmienna do przechowywania wczytanego pliku
-    public static File file;
+    public static File choosedFile;
 
     // Czcionki do u¿ycia w aplikacji
     final Font dateFont = new Font("SansSerif", Font.ITALIC, 33);
-    final Font defFont = new Font("SansSerif", Font.BOLD, 18);
+    public static Font defFont = new Font("SansSerif", Font.BOLD, 18);
     final Font fileFont = new Font("SansSerif", Font.BOLD, 30);
     // Format daty i godziny
     private final DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
@@ -201,7 +198,7 @@ public class GUI extends JFrame implements ActionListener {
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Utworzenie okna wyboru pliku z danymi
-        fileChooseFrame = new JFrame(text.getChoose());
+        fileChooseFrame = new JFrame(text.getFileScreen());
         // Ustawienie t³a dla okna
         fileChooseFrame.setContentPane(fileChooseBcg);
         // Ustawienie rozmiaru okna
@@ -214,7 +211,7 @@ public class GUI extends JFrame implements ActionListener {
         fileChooseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Utworzenie okna wyœwietlaj¹cego wczytane dane
-        dataShowFrame = new JFrame(text.getReadData());
+        dataShowFrame = new JFrame(text.getFilePresentation());
         // Ustawienie t³a dla okna
         dataShowFrame.setContentPane(showDataBcg);
         // Ustawienie rozmiaru okna
@@ -248,14 +245,11 @@ public class GUI extends JFrame implements ActionListener {
         dateShowLabel2.setText(dateFormat.format(new Date()));
 
         // Okreœlenie co ma siê dziaæ co 1000 milisekund (1 sekunda)
-        Timer timer = new Timer(1000, new ActionListener() {
-            @Override
-            // Aktualizacja daty
-            public void actionPerformed(ActionEvent e) {
-                dateShowLabel.setText(dateFormat.format(new Date()));
-                dateShowLabel1.setText(dateFormat.format(new Date()));
-                dateShowLabel2.setText(dateFormat.format(new Date()));
-            }
+        // Aktualizacja daty
+        Timer timer = new Timer(1000, e -> {
+            dateShowLabel.setText(dateFormat.format(new Date()));
+            dateShowLabel1.setText(dateFormat.format(new Date()));
+            dateShowLabel2.setText(dateFormat.format(new Date()));
         });
         // Uruchomienie timera
         timer.start();
@@ -282,44 +276,14 @@ public class GUI extends JFrame implements ActionListener {
             mainFrame.setVisible(false);
             dataShowFrame.setVisible(false);
         }
+
+        // Jeœli przycisk "Wyœwietl dane" zostanie naciœniêty, otwórz okno wyœwietlenia danych
         if (e.getSource() == showListScreenButton) {
             // Ukrycie okna g³ównego
             mainFrame.setVisible(false);
             // Otwarcie okna z danymi
             dataShowFrame.setVisible(true);
-
-
-//            // Pobranie danych do wyœwietlenia za pomoc¹ metody getData() z klasy ConnectToData
-//            String[][] data = ConnectToData.getDataToGUI();
-//            // Iterowanie po wierszach danych
-//            for (int i = 0; i < data.length; i++) {
-//                // Iterowanie po kolumnach danych
-//                for (int j = 0; j < data[i].length; j++) {
-//                    // Tworzenie etykiety do wyœwietlenia aktualnie przetwarzanej komórki
-//                    JLabel cellLabel = new JLabel(data[i][j]);
-//                    // Ustawienie pozycji etykiety na ekranie
-//                    cellLabel.setBounds(25 + j * 200, 100 + i * 30, 100, 30);
-//                    // Ustawienie podstawowej czcionki
-//                    cellLabel.setFont(defFont);
-//                    // Dodanie etykiety do okna do wyœwietlania danych
-//                    dataShowFrame.add(cellLabel);
-//                }
-//            }
-            String[][] data = Excel.getDataFromExcel().toArray(new String[0][]);
-            // Iterowanie po wierszach danych
-            for (int i = 0; i < data.length; i++) {
-                // Iterowanie po kolumnach danych
-                for (int j = 0; j < data[i].length; j++) {
-                    // Tworzenie etykiety do wyœwietlenia aktualnie przetwarzanej komórki
-                    JLabel cellLabel = new JLabel(data[i][j]);
-                    // Ustawienie pozycji etykiety na ekranie
-                    cellLabel.setBounds(25 + j * 200, 100 + i * 30, 100, 30);
-                    // Ustawienie podstawowej czcionki
-                    cellLabel.setFont(defFont);
-                    // Dodanie etykiety do okna do wyœwietlania danych
-                    dataShowFrame.add(cellLabel);
-                }
-            }
+            ConnectToData.getDataToGUI();
         }
 
         // Jeœli przycisk "Powrót" zostanie naciœniêty, wróæ do g³ównego okna aplikacji
@@ -334,19 +298,16 @@ public class GUI extends JFrame implements ActionListener {
             mainFrame.setVisible(true);
             dataShowFrame.setVisible(false);
         }
-        // Jeœli przycisk "Wybierz" zostanie naciœniêty, otwórz okno wyboru pliku i wczytaj z niego dane
+
         if (e.getSource() == chooseFileButton) {
             // Otwarcie okna wyboru pliku
             int returnVal = fileChooser.showOpenDialog(fileChooseFrame);
             // Jeœli zostanie wybrany plik, zapisz jego œcie¿kê do zmiennej "file" i wyœwietl j¹ w etykiecie
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                file = fileChooser.getSelectedFile();
-                fileDirectoryLabel.setText(file.getAbsolutePath());
-            }
-            // Jeœli zostanie wybrany plik zostanie uruchomiona klasa Excel z wybranym plikiem
-            int returnValue = fileChooser.showOpenDialog(null);
-            if (returnValue == JFileChooser.APPROVE_OPTION) {
-                file = fileChooser.getSelectedFile();
+                choosedFile = fileChooser.getSelectedFile();
+                fileDirectoryLabel.setText(choosedFile.getAbsolutePath());
+                // Uruchom klasê Excel z wybranym plikiem
+                Excel.getDataFromExcel();
             }
         }
     }

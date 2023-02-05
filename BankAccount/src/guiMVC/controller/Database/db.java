@@ -47,6 +47,77 @@ public class db {
             e.printStackTrace();
         }
     }
+    private String tabTostr(String dane [][] )
+    {
+        String result = "";
+        for(int i=0;i<dane.length;i++)
+        {
+            result = result.concat("(");
+            for(int a=0;a<dane[i].length;a++)
+            {
+                result = result.concat(dane[i][a] + ",");
+
+            }
+
+            result = result.substring(0, result.length()-1).concat(")"); //replace last ',' with ')'
+
+        }
+        return result;
+    }
+
+    public boolean insert(String dane [][])
+    {
+        // String [][] dane = {{"6","24/02/2022","20.11","Blik","Hera koka hasz"}};
+        String a = tabTostr(dane);
+        System.out.println(a);
+        String  statemaneString = String.format(this.model.INSERT,a);
+        System.out.println(statemaneString);
+        try
+        {
+            Statement stmt = this.conn.createStatement();
+            stmt.execute(statemaneString);
+            return true;
+        }catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+            //e.printStackTrace();
+        }
+    }
+
+    public String select(String dane)
+    {
+        if (dane.equals("")) dane = "1=1";
+        String  statemaneString = String.format(this.model.SELECT,dane);
+        try
+        {
+            Statement stmt = this.conn.createStatement();
+            ResultSet res = stmt.executeQuery(statemaneString);
+            return resultToStr(res);
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "wyebalo selecta";
+    }
+
+
+    public String resultToStr(ResultSet rs)
+    {
+        //String result[][] = {{""}};
+        String result = "";
+        try {
+            while(rs.next()) {
+                result = result.concat(rs.getString("data"));
+                result = result.concat(rs.getString("typ_transakcji"));
+                result = result.concat(rs.getString("opis"));
+                result = result.concat(rs.getString("kwota"));
+
+            }
+            return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "wyebalo konwerter";
+        }
+    }
 
 
 }
