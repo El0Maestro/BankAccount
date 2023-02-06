@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "BankAccount\\src\\guiMVC\\controller\\DatabaseController.jar"
+    ]
+}

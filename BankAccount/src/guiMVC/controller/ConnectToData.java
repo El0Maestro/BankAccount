@@ -2,7 +2,11 @@ package guiMVC.controller;
 
 import guiMVC.view.GUI;
 
+
 import javax.swing.*;
+
+import DB.db;
+
 import java.awt.Dimension;
 import java.io.File;
 import java.util.Arrays;
@@ -52,7 +56,23 @@ public class ConnectToData {
         SendDataToDataBase(ListFromExcel);
     }
 
+
     private static void SendDataToDataBase(String[][] listTransactions) {
-        List<String> transactions = Arrays.stream(listTransactions).map(Arrays::toString).toList();
+        //List<String> transactions = Arrays.stream(listTransactions).map(Arrays::toString).toList();
+        db baza = new db();
+        baza.connect();
+        baza.init();
+        baza.insert(listTransactions);
+        baza.disconnect();
+    }
+
+    public static String ReceiveDataFromDatabase(/*String stmt */) {
+        //List<String> transactions = Arrays.stream(listTransactions).map(Arrays::toString).toList();
+        db baza = new db();
+        baza.connect();
+        baza.init();
+        String result = baza.select("1=1");
+        baza.disconnect();
+        return result;
     }
 }

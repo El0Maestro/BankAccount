@@ -2,7 +2,7 @@ package guiMVC.model;
 
 public class Text {
     final String close = "ZAMKNIJ";
-    final String back = "WRÓÆ";
+    final String back = "WRï¿½ï¿½";
 
     public String getFilePresentation() {
         return filePresentation;
@@ -42,6 +42,6 @@ public class Text {
     final String bankAcc = "Bank Account Binder";
     final String fileScreen = "Ekran wyboru pliku";
     final String readData = "1.ODCZYTAJ DANE";
-    final String showData = "2.WYŒWIETL DANE";
+    final String showData = "2.WYï¿½WIETL DANE";
 
 }
