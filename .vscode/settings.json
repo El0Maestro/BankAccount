@@ -16,5 +16,7 @@
     ],
     "java.project.sourcePaths": [
         "com"
-    ]
+    ],
+    "java.dependency.syncWithFolderExplorer": true,
+    "java.dependency.packagePresentation": "hierarchical"
 }

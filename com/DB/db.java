@@ -49,19 +49,20 @@ public class db {
             e.printStackTrace();
         }
     }
-    private String tabTostr(String dane [][] )
-    {
-        String result = "";
+    private String[] tabTostr(String dane [][] )
+    { 
+        String[] result = new String[dane.length];
         for(int i=0;i<dane.length;i++)
         {
-            result = result.concat("(");
+            result[i] = "";
+            result[i] = result[i].concat("(");
             for(int a=0;a<dane[i].length;a++)
             {
-                result = result.concat(dane[i][a] + ",");
+                result[i] = result[i].concat(dane[i][a] + ",");
                 
             }
             
-            result = result.substring(0, result.length()-1).concat(")"); //replace last ',' with ')'
+            result[i] = result[i].substring(0, result[i].length()-1).concat(")"); //replace last ',' with ')'
             
         }
         return result;
@@ -70,20 +71,24 @@ public class db {
     public boolean insert(String dane [][])
     {
         // String [][] dane = {{"6","24/02/2022","20.11","Blik","Hera koka hasz"}};
-        String a = tabTostr(dane);
-        System.out.println(a);
-        String  statemaneString = String.format(this.model.INSERT,a);
-        System.out.println(statemaneString);
-        try 
+        String[] a = tabTostr(dane);
+        for(String line:a)
         {
-            Statement stmt = this.conn.createStatement();
-            stmt.execute(statemaneString);
-            return true;
-        }catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-            //e.printStackTrace();
+            System.out.println(line);
+            String  statemaneString = String.format(this.model.INSERT,line);
+            System.out.println(statemaneString);
+            try 
+            {
+                Statement stmt = this.conn.createStatement();
+                stmt.execute(statemaneString);
+                
+            }catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+                //e.printStackTrace();
+            }
         }
+        return true;
     }
 
     public String select(String dane)
@@ -109,9 +114,13 @@ public class db {
         try {
             while(rs.next()) {
                 result = result.concat(rs.getString("data"));
+                result = result.concat(" ");
                 result = result.concat(rs.getString("typ_transakcji"));
+                result = result.concat(" ");
                 result = result.concat(rs.getString("opis"));
+                result = result.concat(" ");
                 result = result.concat(rs.getString("kwota"));
+                result = result.concat(" ");
                 
             }
             return result;
