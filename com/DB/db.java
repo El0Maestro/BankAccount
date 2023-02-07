@@ -54,11 +54,11 @@ public class db {
         String[] result = new String[dane.length];
         for(int i=0;i<dane.length;i++)
         {
-            result[i] = "";
-            result[i] = result[i].concat("(");
+            
+            result[i] = "(NULL,";
             for(int a=0;a<dane[i].length;a++)
             {
-                result[i] = result[i].concat(dane[i][a] + ",");
+                result[i] = result[i].concat("'"+dane[i][a] + "',");
                 
             }
             
@@ -95,11 +95,15 @@ public class db {
     {
         if (dane.equals("")) dane = "1=1";
         String  statemaneString = String.format(this.model.SELECT,dane);
+        String  count = String.format(this.model.COUNT,dane);
         try 
         {
             Statement stmt = this.conn.createStatement();
-            ResultSet res = stmt.executeQuery(statemaneString);
-            return resultToTab(res);
+            ResultSet res = stmt.executeQuery(count);
+            res.next();
+            int rows = res.getInt("count(*)");
+            res = stmt.executeQuery(statemaneString);
+            return resultToTab(res,rows);
         }catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,14 +111,13 @@ public class db {
     }
 
 
-    public String[][] resultToTab(ResultSet rs)
+    public String[][] resultToTab(ResultSet rs,int rows)
     {
         //String result[][] = {{""}};
         
 
         try {
-            rs.last();
-            String [][] tab = new String[rs.getRow()][4];
+            String [][] tab = new String[rows][4];
             int i = 0;
             while(rs.next()) {
                 tab[i][0] = rs.getString("data");

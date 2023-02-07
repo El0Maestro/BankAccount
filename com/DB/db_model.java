@@ -16,6 +16,10 @@ public class db_model {
     final String INSERT = """
             INSERT INTO tranzakcje VALUES %s
             """;
+            
+    final String COUNT = """
+                SELECT COUNT(*) FROM tranzakcje WHERE %s;
+                """;       
 
 
 }
