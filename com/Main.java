@@ -1,4 +1,3 @@
-
 import DB.db;
 public class Main {
 
@@ -10,6 +9,6 @@ public class Main {
         if (baza.insert(dane))
         System.out.println(baza.select("1=1"));
         else
-        System.out.println("oops");
+        System.out.println("nie dało rady wyciagnąc z bazy");
     }
 }

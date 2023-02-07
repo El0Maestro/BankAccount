@@ -1,5 +1,3 @@
-//java -classpath "sqlite-jdbc-3.39.4.0.jar" db.java
-
 package DB;
 import java.sql.*;
 
@@ -8,9 +6,6 @@ public class db {
     String path = "wydatki.db";
     final String url = "jdbc:sqlite:".concat(path);
 
-
-
-    
     private final db_model model = new db_model(); 
     
     public boolean connect() {    
