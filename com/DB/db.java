@@ -91,7 +91,7 @@ public class db {
         return true;
     }
 
-    public String select(String dane)
+    public String[][] select(String dane)
     {
         if (dane.equals("")) dane = "1=1";
         String  statemaneString = String.format(this.model.SELECT,dane);
@@ -99,34 +99,34 @@ public class db {
         {
             Statement stmt = this.conn.createStatement();
             ResultSet res = stmt.executeQuery(statemaneString);
-            return resultToStr(res);
+            return resultToTab(res);
         }catch (SQLException e) {
             e.printStackTrace();
         }
-        return "wyebalo selecta";
+        return null;
     }
 
 
-    public String resultToStr(ResultSet rs)
+    public String[][] resultToTab(ResultSet rs)
     {
         //String result[][] = {{""}};
-        String result = "";
+        
+
         try {
+            rs.last();
+            String [][] tab = new String[rs.getRow()][4];
+            int i = 0;
             while(rs.next()) {
-                result = result.concat(rs.getString("data"));
-                result = result.concat(" ");
-                result = result.concat(rs.getString("typ_transakcji"));
-                result = result.concat(" ");
-                result = result.concat(rs.getString("opis"));
-                result = result.concat(" ");
-                result = result.concat(rs.getString("kwota"));
-                result = result.concat(" ");
-                
+                tab[i][0] = rs.getString("data");
+                tab[i][1] = rs.getString("typ_transakcji");
+                tab[i][2] = rs.getString("opis");
+                tab[i][3] = rs.getString("kwota");
+                i+=1;
             }
-            return result;
+            return tab;
         } catch (SQLException e) {
             e.printStackTrace();
-            return "wyebalo konwerter";
+            return null;
         }
     }
 
