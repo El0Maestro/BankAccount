@@ -9,8 +9,6 @@ import DB.db;
 
 import java.awt.Dimension;
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
 
 
 public class ConnectToData {
@@ -18,8 +16,6 @@ public class ConnectToData {
     //Wy?lij dane do interfejsu graficznego z bazy danych
     public static String[][] getDataToGUI(File choosedFile)  {
         // Tutaj implementacja metody getData, np.:
-        List<String[]> dataList = Excel.getDataFromExcel(choosedFile);
-        //String[][] data = dataList.toArray(new String[0][]);
         String [][] data = ReceiveDataFromDatabase();
         // Tworzenie panelu do wyświetlania danych z możliwością przewijania
         JScrollPane scrollPane = new JScrollPane();
