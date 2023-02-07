@@ -19,7 +19,8 @@ public class ConnectToData {
     public static String[][] getDataToGUI(File choosedFile)  {
         // Tutaj implementacja metody getData, np.:
         List<String[]> dataList = Excel.getDataFromExcel(choosedFile);
-        String[][] data = dataList.toArray(new String[0][]);
+        //String[][] data = dataList.toArray(new String[0][]);
+        String [][] data = ReceiveDataFromDatabase();
         // Tworzenie panelu do wyświetlania danych z możliwością przewijania
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -52,12 +53,10 @@ public class ConnectToData {
     }
 
 
-    public static void ReceivingDataFromExcel(String[][] ListFromExcel) {
-        SendDataToDataBase(ListFromExcel);
-    }
 
 
-    private static void SendDataToDataBase(String[][] listTransactions) {
+
+    public static void SendDataToDataBase(String[][] listTransactions) {
         //List<String> transactions = Arrays.stream(listTransactions).map(Arrays::toString).toList();
         db baza = new db();
         baza.connect();
@@ -66,12 +65,12 @@ public class ConnectToData {
         baza.disconnect();
     }
 
-    public static String ReceiveDataFromDatabase(/*String stmt */) {
+    public static String[][] ReceiveDataFromDatabase(/*String stmt */) {
         //List<String> transactions = Arrays.stream(listTransactions).map(Arrays::toString).toList();
         db baza = new db();
         baza.connect();
         baza.init();
-        String result = baza.select("1=1");
+        String[][] result = baza.select("1=1");
         baza.disconnect();
         return result;
     }
