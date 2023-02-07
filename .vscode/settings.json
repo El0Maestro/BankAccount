@@ -1,6 +1,11 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "BankAccount\\src\\guiMVC\\controller\\DatabaseController.jar"
+        "BankAccount\\src\\guiMVC\\controller\\DatabaseController.jar",
+        "c:\\Users\\Mariusz\\Desktop\\jary\\commons-collections4-4.1.jar",
+        "c:\\Users\\Mariusz\\Desktop\\jary\\poi-3.17.jar",
+        "c:\\Users\\Mariusz\\Desktop\\jary\\poi-ooxml-3.17.jar",
+        "c:\\Users\\Mariusz\\Desktop\\jary\\poi-ooxml-schemas-3.17.jar",
+        "c:\\Users\\Mariusz\\Desktop\\jary\\xmlbeans-2.6.0.jar"
     ]
 }
